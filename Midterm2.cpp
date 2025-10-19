@@ -116,11 +116,13 @@ public:
         if (head){
             return head ->data;
         }
+        return ""; //if it is empty, it returns an empty string
     }
     string end(){
         if (tail){
             return tail->data;
         }
+        return "";
     }
 
     ~DoublyLinkedList() {
@@ -138,7 +140,7 @@ public:
             return;
         }
         while (current) {
-            cout << current->data << " ";
+            cout << current->data << " " <<endl;
             current = current->next;
         }
         cout << endl;
@@ -154,19 +156,22 @@ int main() {
     string name;
     
     while (getline(inFile, name)){ //this is to see if the file is empty or not, and it is insering the names into the vector I created 
-            names.push_back(name);
+        names.push_back(name);
     }
-        if (name.empty()){
-            cout << "The file is empty" << endl;
+    if (name.empty()){
+        cout << "The file is empty" << endl;
+        return 0;
     }
     inFile.close();
 
+    cout<< "Shop Opens!!" << endl;
     
     for (int i = 0; i<5 ; ++i){
         string randName = names [rand() % names.size()]; //this is to choose random names
         cout << randName << " joined the line" << endl;
         line.push_back(randName);
     }
+    cout << "\nCurrently in line: " << endl;
     line.print();
 
     for (int i = 2; i<=20; i++){
@@ -177,24 +182,25 @@ int main() {
         cout << line.start() << " is served" << endl;
         line.pop_front();
     }
-
+    prob = rand() % 100 + 1;
     if (prob <= 60 && !line.empty()) {
         string randName = names [rand() % names.size()];
         cout << randName << " joins the line" << endl;
         line.push_back(randName);
     }
-    
+    prob = rand() % 100 + 1;
     if (prob <= 20 && !line.empty()) {
         cout << line.end() << " decided not to wait and left the line" << endl;
+        line.pop_back();
     }
-    
+    prob = rand() % 100 + 1;
     if (prob <= 10 && !line.empty()) {
         line.randomPersonLeaving();
     }
-    
+    prob = rand() % 100 + 1;
     if (prob <= 10 && !line.empty()) {
         string VIP = names [rand() % names.size()];
-        cout <<  VIP << " (VIP) joins the line, moved to the front" << endl;
+        cout <<  VIP << " (VIP) joins the front of the line" << endl;
         line.push_front(VIP);
     }
 
@@ -206,4 +212,6 @@ A new customer joining the end of the line is 60%
 The customer at the end of the line deciding they don't want to wait and leaving is 20%
 Any particular customer can decide they don't want to wait and leave the line: 10%
 A VIP (very important person) customer with a Coffee House Gold Card gets to skip the line and go straight to the counter and order: 10% */
+    }
+    return 0;
 }
