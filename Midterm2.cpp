@@ -11,10 +11,10 @@ const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 class DoublyLinkedList {
 private:
     struct Node {
-        int data;
+        string data;
         Node* prev;
         Node* next;
-        Node(int val, Node* p = nullptr, Node* n = nullptr) {
+        Node(string val, Node* p = nullptr, Node* n = nullptr) {
             data = val;
             prev = p;
             next = n;
@@ -28,6 +28,10 @@ public:
     DoublyLinkedList() { 
         head = nullptr; 
         tail = nullptr; 
+    }
+
+    bool emnpty(){
+        return head == nullprt;
     }
 
     void insert_after(int value, int position) {
@@ -105,7 +109,7 @@ public:
         delete temp;
     }
 
-    void push_back(int v) {
+    void push_back(string v) {
         Node* newNode = new Node(v);
         if (!tail)
             head = tail = newNode;
@@ -116,7 +120,7 @@ public:
         }
     }
 
-    void push_front(int v) {
+    void push_front(string v) {
         Node* newNode = new Node(v);
         if (!head)
             head = tail = newNode;
@@ -154,6 +158,23 @@ public:
             head = tail = nullptr;
         delete temp;
     }
+    void randomPersonLeaving() {
+        int count = 0;
+        Node* temp=head;
+        while (temp){
+            count++;
+            temp = temp->next;
+        }
+        if (count <=1 ){
+            return;
+        }
+        int position = rand() % count;
+        temp = head;
+        for (int i = 0 ; i<position ; ++i){
+            temp = temp->next;
+        }
+        cout  << temp -> data << " left the line" << endl;
+        
 
     ~DoublyLinkedList() {
         while (head) {
@@ -176,29 +197,23 @@ public:
         cout << endl;
     }
 
-    void print_reverse() {
-        Node* current = tail;
-        if (!current) {
-            cout << "List is empty." << endl;
-            return;
-        }
-        while (current) {
-            cout << current->data << " ";
-            current = current->prev;
-        }
-        cout << endl;
-    }
 };
 
 int main() {
-    vector <string> names;
+    vector <string> names; //I am using a vector to store my names
     ifstream inFile("names.txt");
     string name;
-    while (getline(inFile, name)){
-
+    
+    while (getline(inFile, name)){ //this is to see if the file is empty or not, and it is insering the names into the vector I created 
+        if (!names.empty()) {
+            names.push_back(names);
+        }
+        else {
+            cout << "The file is empty" << endl;
     }
     inFile.close();
 
+    
     for (int i = 0; i<5 ; ++i){
 
     }
