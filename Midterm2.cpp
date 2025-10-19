@@ -9,7 +9,7 @@ using namespace std;
 class DoublyLinkedList {
 private:
     struct Node {
-        string data; //here agin, initially integers are nwo strings because I am working with names
+        string data; //here again, initially integers are now strings because I am working with names
         Node* prev;
         Node* next;
         Node(string val, Node* p = nullptr, Node* n = nullptr) {
