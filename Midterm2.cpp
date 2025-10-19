@@ -174,7 +174,18 @@ public:
             temp = temp->next;
         }
         cout  << temp -> data << " left the line" << endl;
-        
+        delete temp;
+    }
+
+    string start(){
+        if (head){
+            return head ->data;
+        }
+    }
+    string end(){
+        if (tail){
+            return tail->data;
+        }
 
     ~DoublyLinkedList() {
         while (head) {
@@ -200,6 +211,7 @@ public:
 };
 
 int main() {
+    DoublyLinkedList shop;
     vector <string> names; //I am using a vector to store my names
     ifstream inFile("names.txt");
     string name;
@@ -215,25 +227,33 @@ int main() {
 
     
     for (int i = 0; i<5 ; ++i){
+        string randName = names [rand() % names.size()]; //this is to choose random names
+        cout << randName << " joined the line" << endl;
+        shop.push_back(randName);
+    }
+    shop.print();
+    int prob = rand() % 100 + 1  // returns random number 1-100
+        
+    if (prob <= 40 && !shop.empty()) {// perform Event A
+        cout << shop.start() << " is served" << endl;
+        shop.pop_front();
+    }
 
-    }
-    prob = rand() % 100 + 1  // returns random number 1-100
-    if (prob <= 40) {
-    // perform Event A
-    }
-    prob = rand() % 100 + 1  // returns random number 1-100
     if (prob <= 60) {
- 
+        string randName = names [rand() % names.size()];
+        cout << randName << " joins the line" << endl;
+        line.push_back(randName);
     }
-    prob = rand() % 100 + 1  // returns random number 1-100
+    
     if (prob <= 20) {
-    
+        cout << line.back() << " decided not to wait and left the line" << endl;
     }
-    prob = rand() % 100 + 1  // returns random number 1-100
+    
     if (prob <= 10) {
+        line.randomPersonLeaving();
     
     }
-    prob = rand() % 100 + 1  // returns random number 1-100
+    
     if (prob <= 10) {
     
     }
