@@ -9,7 +9,7 @@ using namespace std;
 class DoublyLinkedList {
 private:
     struct Node {
-        string data;
+        string data; //here agin, initially integers are nwo strings because I am working with names
         Node* prev;
         Node* next;
         Node(string val, Node* p = nullptr, Node* n = nullptr) {
@@ -32,7 +32,7 @@ public:
         return head == nullptr;
     }
 
-    void push_back(string v) {
+    void push_back(string v) { //the v(s) are changed from integers to strings because in this code we are using names 
         Node* newNode = new Node(v);
         if (!tail)
             head = tail = newNode;
@@ -82,6 +82,7 @@ public:
         delete temp;
     }
     void randomPersonLeaving() {
+        //here random people are chosen to leave the line, however, the while and if is used here to prevent the person in the first of the line from leaving
         int count = 0;
         Node* temp=head;
         while (temp){
@@ -97,6 +98,8 @@ public:
             temp = temp->next;
         }
         cout  << temp -> data << " left the line" << endl;
+        //if the nodes are not head or tail, the node will become head/tail
+        //this si to unlink the nodes so that we can delete them
         if(temp->prev){
             temp->prev->next = temp->next;
         }
@@ -111,7 +114,7 @@ public:
         }
         delete temp;
     }
-
+//start and end here is to return the start and end names of customers
     string start(){
         if (head){
             return head ->data;
@@ -178,40 +181,33 @@ int main() {
         cout << i << " minutes" << endl;
     int prob = rand() % 100 + 1;  // returns random number 1-100
         
-    if (prob <= 40 && !line.empty()) {// perform Event A
+    if (prob <= 40 && !line.empty()) {// perform Event A: A customer being helped at the beginning of the line and ordering their coffee is 40%
         cout << line.start() << " is served" << endl;
         line.pop_front();
     }
     prob = rand() % 100 + 1;
-    if (prob <= 60 && !line.empty()) {
+    if (prob <= 60 && !line.empty()) {//A new customer joining the end of the line is 60%
         string randName = names [rand() % names.size()];
         cout << randName << " joins the line" << endl;
         line.push_back(randName);
     }
     prob = rand() % 100 + 1;
-    if (prob <= 20 && !line.empty()) {
+    if (prob <= 20 && !line.empty()) {//The customer at the end of the line deciding they don't want to wait and leaving is 20%
         cout << line.end() << " decided not to wait and left the line" << endl;
         line.pop_back();
     }
     prob = rand() % 100 + 1;
-    if (prob <= 10 && !line.empty()) {
+    if (prob <= 10 && !line.empty()) { // Any particular customer can decide they don't want to wait and leave the line: 10%
         line.randomPersonLeaving();
     }
     prob = rand() % 100 + 1;
-    if (prob <= 10 && !line.empty()) {
+    if (prob <= 10 && !line.empty()) { //A VIP (very important person) customer with a Coffee House Gold Card gets to skip the line and go straight to the counter and order: 10% */
         string VIP = names [rand() % names.size()];
         cout <<  VIP << " (VIP) joins the front of the line" << endl;
         line.push_front(VIP);
     }
-
         cout << "The shop's current listing: " << endl;
         line.print();
- /*In subsequent time periods, the probability of:
-A customer being helped at the beginning of the line and ordering their coffee is 40%
-A new customer joining the end of the line is 60%
-The customer at the end of the line deciding they don't want to wait and leaving is 20%
-Any particular customer can decide they don't want to wait and leave the line: 10%
-A VIP (very important person) customer with a Coffee House Gold Card gets to skip the line and go straight to the counter and order: 10% */
-    }
+     }
     return 0;
 }
