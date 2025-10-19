@@ -32,81 +32,6 @@ public:
         return head == nullptr;
     }
 
-    void insert_after(int value, int position) {
-        if (position < 0) {
-            cout << "Position must be >= 0." << endl;
-            return;
-        }
-        Node* newNode = new Node(value);
-        if (!head) {
-            head = tail = newNode;
-            return;
-        }
-        Node* temp = head;
-        for (int i = 0; i < position && temp; ++i)
-            temp = temp->next;
-        if (!temp) {
-            cout << "Position exceeds list size. Node not inserted.\n";
-            delete newNode;
-            return;
-        }
-        newNode->next = temp->next;
-        newNode->prev = temp;
-        if (temp->next)
-            temp->next->prev = newNode;
-        else
-            tail = newNode;
-        temp->next = newNode;
-    }
-
-    void delete_val(int value) {
-        if (!head) return;
-        Node* temp = head;
-        while (temp && temp->data != value)
-            temp = temp->next;
-        if (!temp) return;
-        if (temp->prev)
-            temp->prev->next = temp->next;
-        else
-            head = temp->next;
-        if (temp->next)
-            temp->next->prev = temp->prev;
-        else
-            tail = temp->prev;
-        delete temp;
-    }
-
-    void delete_pos(int pos) {
-        if (!head) {
-            cout << "List is empty." << endl;
-            return;
-        }
-        if (pos == 1) {
-            pop_front();
-            return;
-        }
-        Node* temp = head;
-        for (int i = 1; i < pos; i++) {
-            if (!temp) {
-                cout << "Position doesn't exist." << endl;
-                return;
-            } else
-                temp = temp->next;
-        }
-        if (!temp) {
-            cout << "Position doesn't exist." << endl;
-            return;
-        }
-        if (!temp->next) {
-            pop_back();
-            return;
-        }
-        Node* tempPrev = temp->prev;
-        tempPrev->next = temp->next;
-        temp->next->prev = tempPrev;
-        delete temp;
-    }
-
     void push_back(string v) {
         Node* newNode = new Node(v);
         if (!tail)
@@ -172,6 +97,18 @@ public:
             temp = temp->next;
         }
         cout  << temp -> data << " left the line" << endl;
+        if(temp->prev){
+            temp->prev->next = temp->next;
+        }
+        else {
+            head = temp->next;
+        }
+        if(temp->next){
+            temp->next->prev=temp->prev;
+        }
+        else{
+            tail = temp->prev;
+        }
         delete temp;
     }
 
@@ -184,6 +121,7 @@ public:
         if (tail){
             return tail->data;
         }
+    }
 
     ~DoublyLinkedList() {
         while (head) {
@@ -209,16 +147,16 @@ public:
 };
 
 int main() {
+    srand(time(0));
     DoublyLinkedList line;
     vector <string> names; //I am using a vector to store my names
     ifstream inFile("names.txt");
     string name;
     
     while (getline(inFile, name)){ //this is to see if the file is empty or not, and it is insering the names into the vector I created 
-        if (!names.empty()) {
-            names.push_back(names);
-        }
-        else {
+            names.push_back(name);
+    }
+        if (name.empty()){
             cout << "The file is empty" << endl;
     }
     inFile.close();
@@ -235,26 +173,26 @@ int main() {
         cout << i << " minutes" << endl;
     int prob = rand() % 100 + 1;  // returns random number 1-100
         
-    if (prob <= 40 && !shop.empty()) {// perform Event A
-        cout << shop.start() << " is served" << endl;
+    if (prob <= 40 && !line.empty()) {// perform Event A
+        cout << line.start() << " is served" << endl;
         line.pop_front();
     }
 
-    if (prob <= 60) {
+    if (prob <= 60 && !line.empty()) {
         string randName = names [rand() % names.size()];
         cout << randName << " joins the line" << endl;
         line.push_back(randName);
     }
     
-    if (prob <= 20) {
-        line << line.back() << " decided not to wait and left the line" << endl;
+    if (prob <= 20 && !line.empty()) {
+        cout << line.end() << " decided not to wait and left the line" << endl;
     }
     
-    if (prob <= 10) {
+    if (prob <= 10 && !line.empty()) {
         line.randomPersonLeaving();
     }
     
-    if (prob <= 10) {
+    if (prob <= 10 && !line.empty()) {
         string VIP = names [rand() % names.size()];
         cout <<  VIP << " (VIP) joins the line, moved to the front" << endl;
         line.push_front(VIP);
