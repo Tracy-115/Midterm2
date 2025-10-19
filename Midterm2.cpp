@@ -2,11 +2,9 @@
 #include <fstream>
 #include <ctime>
 #include <string>
-#include <csdlib>
+#include <cstdlib>
 #include <vector>
 using namespace std;
-
-const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
 
 class DoublyLinkedList {
 private:
@@ -30,8 +28,8 @@ public:
         tail = nullptr; 
     }
 
-    bool emnpty(){
-        return head == nullprt;
+    bool empty(){
+        return head == nullptr;
     }
 
     void insert_after(int value, int position) {
@@ -211,7 +209,7 @@ public:
 };
 
 int main() {
-    DoublyLinkedList shop;
+    DoublyLinkedList line;
     vector <string> names; //I am using a vector to store my names
     ifstream inFile("names.txt");
     string name;
@@ -229,14 +227,17 @@ int main() {
     for (int i = 0; i<5 ; ++i){
         string randName = names [rand() % names.size()]; //this is to choose random names
         cout << randName << " joined the line" << endl;
-        shop.push_back(randName);
+        line.push_back(randName);
     }
-    shop.print();
-    int prob = rand() % 100 + 1  // returns random number 1-100
+    line.print();
+
+    for (int i = 2; i<=20; i++){
+        cout << i << " minutes" << endl;
+    int prob = rand() % 100 + 1;  // returns random number 1-100
         
     if (prob <= 40 && !shop.empty()) {// perform Event A
         cout << shop.start() << " is served" << endl;
-        shop.pop_front();
+        line.pop_front();
     }
 
     if (prob <= 60) {
@@ -246,17 +247,21 @@ int main() {
     }
     
     if (prob <= 20) {
-        cout << line.back() << " decided not to wait and left the line" << endl;
+        line << line.back() << " decided not to wait and left the line" << endl;
     }
     
     if (prob <= 10) {
         line.randomPersonLeaving();
-    
     }
     
     if (prob <= 10) {
-    
+        string VIP = names [rand() % names.size()];
+        cout <<  VIP << " (VIP) joins the line, moved to the front" << endl;
+        line.push_front(VIP);
     }
+
+        cout << "The shop's current listing: " << endl;
+        line.print();
  /*In subsequent time periods, the probability of:
 A customer being helped at the beginning of the line and ordering their coffee is 40%
 A new customer joining the end of the line is 60%
