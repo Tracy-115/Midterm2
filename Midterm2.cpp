@@ -1,4 +1,9 @@
 #include <iostream>
+#include <fstream>
+#include <ctime>
+#include <string>
+#include <csdlib>
+#include <vector>
 using namespace std;
 
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
@@ -186,6 +191,41 @@ public:
 };
 
 int main() {
-    cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS; // dummy statement to avoid compiler warning
-    return 0;
+    vector <string> names;
+    ifstream inFile("names.txt");
+    string name;
+    while (getline(inFile, name)){
+
+    }
+    inFile.close();
+
+    for (int i = 0; i<5 ; ++i){
+
+    }
+    prob = rand() % 100 + 1  // returns random number 1-100
+    if (prob <= 40) {
+    // perform Event A
+    }
+    prob = rand() % 100 + 1  // returns random number 1-100
+    if (prob <= 60) {
+ 
+    }
+    prob = rand() % 100 + 1  // returns random number 1-100
+    if (prob <= 20) {
+    
+    }
+    prob = rand() % 100 + 1  // returns random number 1-100
+    if (prob <= 10) {
+    
+    }
+    prob = rand() % 100 + 1  // returns random number 1-100
+    if (prob <= 10) {
+    
+    }
+ /*In subsequent time periods, the probability of:
+A customer being helped at the beginning of the line and ordering their coffee is 40%
+A new customer joining the end of the line is 60%
+The customer at the end of the line deciding they don't want to wait and leaving is 20%
+Any particular customer can decide they don't want to wait and leave the line: 10%
+A VIP (very important person) customer with a Coffee House Gold Card gets to skip the line and go straight to the counter and order: 10% */
 }
